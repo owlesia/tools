@@ -1,0 +1,20 @@
+{
+  "SAFE": false,
+  "OVERWRITE": false,
+  "KEEPBEST": false,
+  "STATS_FILE": null,
+  "EXCLUDED_FILES": [
+    "README.md",
+    "main.ipynb",
+    "main.py",
+    "result.json",
+    "results.json",
+    "test.json"
+  ],
+  "FORCE_FILENAME": "p1.ipynb",
+  "TEST_CMD": "python3 tester.py p1.ipynb",
+  "RESULT_FILE": "test.json",
+  "TIMEOUT": 180,
+  "COURSE_ID": 272598,
+  "SEMESTER": "f21"
+}
