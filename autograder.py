@@ -18,6 +18,7 @@ import pandas as pd
 
 # Local imports
 from s3interface import Database
+from conversation import send_notification
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 
@@ -141,6 +142,8 @@ class Grader(Database):
             for s3path in sorted(submissions):
                 logging.info('========================================')
                 logging.info(s3path)
+                
+                info = self.parse_s3path(s3path)
 
                 try:
                     # Setup environment
@@ -154,7 +157,7 @@ class Grader(Database):
                     self.log_result(result)
 
                 except Exception as e:
-                    info = self.parse_s3path(s3path)
+                    #info = self.parse_s3path(s3path)
                     logging.exception(f"FATAL: Submission from {info.netid}, dated {info.date} "
                                       f"was skipped due to following error")
                     result = {'score': 0, 'error': str(e)}
@@ -167,6 +170,7 @@ class Grader(Database):
                         logging.info(f'Skipped {s3path} because better grade exists')
                     else:
                         self.put_submission('/'.join(s3path.split('/')[:-1] + ['test.json']), result)
+                        send_notification(info.netid, info.date, new_score, project_id)
                 else:
                     logging.info(f'Did not upload results, running in safe mode')
         self.close()

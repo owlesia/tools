@@ -14,37 +14,37 @@ run_grader() {
     export AWS_SHARED_CREDENTIALS_FILE="~/.aws/credentials"
 
     echo "Running Auto-grader"
-    echo "\nAuto-grader fpr P6:"
-    python3 autograder.py p6 ? -ff main.ipynb -rf result.json
+    #echo "\nAuto-grader fpr P6:"
+    #python3 autograder.py p6 ? -ff main.ipynb -rf result.json
 
-    echo "\nAuto-grader for P5:"
-    python3 autograder.py p5 ? -ff land.py
+    #echo "\nAuto-grader for P5:"
+    #python3 autograder.py p5 ? -ff land.py
 
-    echo "\nAuto-grader for P4:"
-    python3 autograder.py p4 ? -ff main.py
+    #echo "\nAuto-grader for P4:"
+    #python3 autograder.py p4 ? -ff main.py
 
-    echo "\nAuto-grader for P3:"
-    python3 autograder.py p3 ? -ff p3.zip
+    #echo "\nAuto-grader for P3:"
+    #python3 autograder.py p3 ? -ff p3.zip
 
     echo "\nAuto-grader for P2:"
-    python3 autograder.py p2 ? -ff bus.py
+    python3 autograder.py p2 ? -cf graderconfig2.json
 
     echo "\nAuto-grader for P1:"
-    python3 autograder.py p1 ? --test-cmd "python3 test.py" --result-file result.json
+    python3 autograder.py p1 ? -cf graderconfig1.json
 }
 
 ntpdate -s time.nist.gov
 git fetch
 
-if [ $LOCAL = $REMOTE ]; then
-    echo "Up-to-date"
-    run_grader
-elif [ $LOCAL = $BASE ]; then
-    echo "Need to pull"
-    git pull
-    run_grader
-elif [ $REMOTE = $BASE ]; then
-    echo "Need to push"
-else
-    echo "Diverged"
-fi
+#if [ $LOCAL = $REMOTE ]; then
+#    echo "Up-to-date"
+run_grader
+#elif [ $LOCAL = $BASE ]; then
+#    echo "Need to pull"
+#    git pull
+#    run_grader
+#elif [ $REMOTE = $BASE ]; then
+#    echo "Need to push"
+#else
+#    echo "Diverged"
+#fi
